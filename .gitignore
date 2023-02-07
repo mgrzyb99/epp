@@ -1,1 +1,5 @@
+/.devcontainer
+/test_data.csv
+/tests.ipynb
 
+__pycache__
