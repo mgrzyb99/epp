@@ -23,6 +23,9 @@ def calculate_epp_leaderboard(
     if any(each_round_players.value_counts() > 1):
         raise ValueError("Some players scored more than once in a round.")
 
+    n_players = len(all_unique_players)
+    n_rounds = len(each_round_players)
+    
     comparison_operator = np.greater if greater_score_is_better else np.less
 
     if reference_player is not None:
@@ -32,9 +35,6 @@ def calculate_epp_leaderboard(
         reference_index = np.arange(n_players)[reference_mask][0]
     else:
         reference_index = 0
-
-    n_players = len(all_unique_players)
-    n_rounds = len(each_round_players)
 
     scores = tournament_df[score_col].to_numpy(dtype=float).reshape((1, n_rounds, -1))
     n_wins = comparison_operator(scores.T, scores).sum(axis=1, dtype=float)
